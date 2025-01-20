@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <div id="game">
+        <p>Rock Paper Scissors</p>
+        <button id="img" onclick="
+        pickedRock(), hehe();
+        ">✊</button>
+        <button onclick="pickedPaper(), hehe()" id="img">🖐</button>
+        <button onclick="pickedScissors(), hehe()"id="img">✌</button>
+        <h4 id="resu">Play the game</h4>
+    <div id="view">
+       <em id="you">You</em> <span id="u">✊</span> <span id="comp">✌</span><em id="compp">Computer</em>
+    </div>
+    
+        <div id="cont">
+        <h3>Wins: <span id="win">0</span></h3>
+        <h3>Loses: <span id="lose">0</span></h3>
+        <h3>Ties: <span id="tie">0</span></h3>
+        </div>
+    Score limit = <input id="score_limit" disabled value="10"><button type="reset" id="reset" onclick="reset()">RESET</button>
+    <p id="inspirations">Made by Princewill</p>
+    <p id="inspiration">Inspired by supersimple.dev</p>
+    </div>
+        <div id="hs">
+            <h2>Settings</h2>
+            <select name="" id="select" onmouseleave="glow()">
+                <option value="10">Set to 10 points</option>
+                <option value="20">Set to 20 points</option>
+                <option value="30">Set to 30 points</option>
+                <option value="40">Set to 40 points</option>
+            </select>
+            <button onclick="check();" id="Confirm">Confirm</button>
+            <p>
+                Set the score limit to prefered number using the droplist or use the input below for custom score.
+            </p>
+            <input type="number" name="" id="no"  onmouseleave="glow()">
+            <button onclick="checkInput()" id="Confirm">Confirm</button>
+    
+            <h3>Change computer's name</h3>
+            <input type="text" name="" id="Cname">
+            <button onclick="changeComputersName()">Confirm</button>
+    
+            <h3>Change Your name</h3>
+            <input type="text" name="" id="Uname">
+            <button onclick="changeYourname()">Confirm</button>
+    
+        </div>
+        
+        <div id="end">
+            <button onclick="hideEnd()">❌</button>
+            <h2>Game over click <em><a href="RPS.html">RESTART</a></em> to play again</h2>
+        </div>
+    <style>
+        body{
+            background-color: rgb(25, 25, 25);
+            color: #eee;
+            display: flex;
+            font-family: Arial, Helvetica, sans-serif;
+            justify-content: space-between;
+            overflow-y: hidden;
+        }
+        @media (max-width:690px){
+#hs{
+    width: 270px;
+}
+
+        }
+        p{
+           font-size: 30px;
+           font-weight: bold;
+        }
+        h3{
+            display: flex;
+            margin-right: 10px;
+        }
+        #img{
+            font-size: 60px;
+            background-color: black;
+            border: 3px solid white;
+            height: 100px;
+            width: 100px;
+            margin-right: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #cont{
+            display: flex;
+        }
+        #reset{
+            font-size: 15px;
+            cursor: pointer;
+        }
+        #u,#comp{
+            font-size: 40px;
+        }
+        #view{
+            width: fit-content;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .show{
+            animation: pop 500ms ease ;
+        }
+        @keyframes pop{
+            0%{scale: .7;}
+            100%{scale: 1; background-color: rebeccapurple;}
+        }
+        @keyframes click{
+            0%{background-color: aqua;}
+            50%{background-color: aqua;box-shadow: 0 0 40px gold; color: black;}
+            100%{background-color: aqua; color: black;}
+        }
+        #hs{
+            max-width: 300px;
+            height: 100vh;
+            border: 1px solid gray;
+            margin-top: 0px;
+            overflow: auto;
+            float: right;
+        }
+        #inspiration{
+            font-size: 10px;
+            opacity: .5;
+            position: absolute;
+            bottom: 0;
+        }
+        #inspirations{
+            font-size: 10px;
+            opacity: .5;
+            position: absolute;
+            bottom: 20px;
+        }
+        #hs::-webkit-scrollbar{
+            display: none;
+        }
+        #hs h2{
+            text-align: center;
+            color: moccasin;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            letter-spacing: 1px;
+            font-weight: .5px;
+            text-decoration: underline;
+        }
+        #hs p{
+            font-size: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            margin-left: 3px;
+        }
+        select{
+            width: 80%;
+            margin-left: 10%;
+            height: 50px;
+            background-color: #333;
+            color: wheat;
+            transition: background 500ms ease;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        select:hover{
+            background-color: #111;
+        }
+        option{
+            color: #eee;
+            cursor: pointer;
+            transition: background 500ms ease;
+        }
+        #hs input{
+            width: 80%;
+            margin-left: 10%;
+            height: 50px;
+            background-color: #333;
+            color: wheat;
+            transition: background 500ms ease;
+            font-size: 25px;
+        }
+        #hs input:hover{
+            background-color: #111;
+        }
+        #hs button{
+            width: 50%;
+            padding: 5px;
+            margin-left: 25%;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: white;
+            transition: background 1s;
+        }
+        .click{
+            animation: click 1s ease;
+            animation-iteration-count: 2;
+        }
+        #score_limit{
+            width: 30px;
+            height: 30px;
+            color: #eee;
+            text-align: center;
+            background: none;
+        }
+        #end{
+            position: absolute;
+            width: 80vw;
+            height: 70px;
+            background-color: #999;
+            bottom: 0;
+            border: 2px solid black;
+            left:10%;
+            display: none;
+        }
+        #end a{
+            color: rgb(32, 200, 200);
+            text-decoration: none;
+        }
+        #end a:hover{
+            text-decoration: underline;
+        }
+        #end button{
+            cursor: pointer;
+            padding: 10px;
+            float: right;
+        }
+        @keyframes peep{
+            0%{bottom: -100px;}
+            100%{bottom: 0;}
+        }
+        .peep{
+            animation: peep 500ms ease;
+        }
+    </style>
+    <script>
+        let u = document.getElementById("u")
+        let comp = document.getElementById("comp")
+let view = document.getElementById("view");
+let wins = document.getElementById("win")
+let loses = document.getElementById("lose")
+let ties =  document.getElementById("tie")
+let a = 1;
+let b =1;
+let c = 1;
+let resu =  document.getElementById("resu")
+let end = document.getElementById('end');
+
+let input = document.getElementById('no');
+
+let you = document.getElementById('you')
+let compp = document.getElementById('compp')
+
+let Cname = document.getElementById('Cname');
+let Uname = document.getElementById('Uname');
+window.onload = function() {
+    if (localStorage.getItem('wins')) {
+        wins.textContent = localStorage.getItem('wins');
+        b = parseInt(localStorage.getItem('loses'));
+        c = parseInt(localStorage.getItem('ties'));
+        score_limit.value = localStorage.getItem('score_limit');
+        you.textContent = localStorage.getItem('you');
+        compp.textContent = localStorage.getItem('compp');
+    }
+};
+
+function saveToLocalStorage() {
+    localStorage.setItem('wins', wins.textContent);
+    localStorage.setItem('loses', loses.textContent);
+    localStorage.setItem('ties', ties.textContent);
+    localStorage.setItem('score_limit', score_limit.value);
+    localStorage.setItem('you', you.textContent);
+    localStorage.setItem('compp', compp.textContent);
+}
+Cname.addEventListener('input', () => {
+    localStorage.setItem('Cname', Cname.value);
+});
+
+if (localStorage.getItem('Cname')) {
+    Cname.value = localStorage.getItem('Cname');
+    compp.textContent = localStorage.getItem('Cname');
+}
+Uname.addEventListener('input', () => {
+    localStorage.setItem('Uname', Uname.value);
+});
+
+if (localStorage.getItem('Uname')) {
+    Uname.value = localStorage.getItem('Uname');
+    you.textContent = localStorage.getItem('Uname');
+}
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', saveToLocalStorage);
+});
+function changeComputersName(){
+ compp.textContent = Cname.value;
+}
+function changeYourname(){
+ you.textContent = Uname.value;
+}
+function checkInput(){
+if(input.value > 100){
+    alert("Number is too high, can't exceed 100;")
+}
+else{
+    score_limit.value = input.value;
+}
+}
+function reset() {
+    a = 1;
+    b = 1;
+    c = 1;
+    wins.textContent = 0;
+    loses.textContent = 0;
+    ties.textContent = 0;
+    resu.textContent = 'Play the game';
+    u.innerHTML = "✊";
+    comp.innerHTML = "✌";
+    saveToLocalStorage();
+}
+function hideEnd(){
+    end.style.display = 'none'
+}
+function gameOver(){
+    end.style.display = 'block';
+    end.classList.add('peep');
+    wins = wins.textContent;
+    loses = loses.textContent;
+    u = u.innerHTML;
+    comp = comp.innerHTML;
+    ties = ties.textContent;
+if(wins > loses){
+    setTimeout(()=>{
+          resu.innerHTML = you.textContent + ' won the game'; 
+          resu = resu.textContent;
+   },500)
+}
+else{
+    setTimeout(()=>{
+      resu.innerHTML = compp.textContent + ' wins'; resu = resu.textContent;
+   },500)
+}
+}
+function glow(){
+let Confirm = document.getElementById("Confirm")
+Confirm.classList.add('click')
+}
+function hehe(){
+    view.classList.add("show")
+}
+
+function pickedRock(){
+
+    
+    const randomNumber = Math.random();
+
+let computerMove = ''
+
+    if(randomNumber >= 0 && randomNumber < 1 / 3){
+         computerMove = 'Rock';
+    }  else if(randomNumber >= 1 / 3 && randomNumber < 2 / 3){
+         computerMove = 'Paper'
+    } else if(randomNumber >= 2 /3 && randomNumber < 1){
+         computerMove = 'Scissors';
+    }
+
+let result = '';
+
+    if (computerMove === 'Rock') {
+        result = 'Tie.'
+        ties.innerHTML = c++;
+        comp.innerHTML = "✊"
+    } else if (computerMove === 'Paper'){
+        result = 'You lose';
+        comp.innerHTML = "🖐"
+        loses.innerHTML = b++;
+    } else if (computerMove === 'Scissors'){
+        result = 'You win'
+        comp.innerHTML = "✌"
+        wins.innerHTML = a++;
+equal30();
+    }
+    u.innerHTML = "✊"
+    resu.textContent = `${result}`
+}
+
+function pickedPaper(){
+    const randomNumber = Math.random();
+
+let computerMove = ''
+
+    if(randomNumber >= 0 && randomNumber < 1 / 3){
+         computerMove = 'Rock';
+    }  else if(randomNumber >= 1 / 3 && randomNumber < 2 / 3){
+         computerMove = 'Paper'
+    } else if(randomNumber >= 2 /3 && randomNumber < 1){
+         computerMove = 'Scissors';
+    }
+
+let result = '';
+
+    if (computerMove === 'Rock') {
+        result = 'You win.'
+        comp.innerHTML = "✊"
+        wins.innerHTML = a++;
+    } else if (computerMove === 'Paper'){
+        result = 'TIE';
+        comp.innerHTML = "🖐"
+        ties.innerHTML = c++;
+    } else if (computerMove === 'Scissors'){
+        result = 'You lose'
+        comp.innerHTML = "✌"
+        loses.innerHTML = b++;
+    }        
+    equal30()
+    u.innerHTML = "🖐"
+    resu.textContent = `${result}`
+}
+
+    function pickedScissors(){
+    const randomNumber = Math.random();
+
+let computerMove = ''
+
+    if(randomNumber >= 0 && randomNumber < 1 / 3){
+         computerMove = 'Rock';
+         comp.innerHTML = "✊"
+    }  else if(randomNumber >= 1 / 3 && randomNumber < 2 / 3){
+         computerMove = 'Paper'
+         comp.innerHTML = "🖐"
+    } else if(randomNumber >= 2 /3 && randomNumber < 1){
+         computerMove = 'Scissors';
+         comp.innerHTML = "✌"
+    }
+u.innerHTML = "✌"
+let result = '';
+
+    if (computerMove === 'Rock') {
+        result = 'You lose.'
+        loses.innerHTML = b++;
+    } else if (computerMove === 'Paper'){
+        result = 'You win';
+        wins.innerHTML = a++;
+    } else if (computerMove === 'Scissors'){
+        result = 'TIE'
+        ties.innerHTML = c++;
+    }
+    equal30()
+    resu.textContent = `${result}`
+}
+let select = document.getElementById("select");
+let score_limit = document.getElementById("score_limit")
+function check(){
+if(select.value == '10'){
+    score_limit.value = 10;
+}
+else if(select.value == '20'){
+    score_limit.value = 20;
+}
+else if (select.value == '30'){
+    score_limit.value = 30;
+}
+else if (select.value == '40'){
+    score_limit.value = 40;
+}
+}
+document.addEventListener("keydown", ()=>{
+    if(event.key === "j"){pickedRock()}
+    if(event.key === "k"){pickedPaper()}
+    if(event.key === "l"){pickedScissors()}
+})
+function equal30(){
+    if(wins.textContent == score_limit.value || loses . textContent == score_limit.value){
+        gameOver();
+    }
+}
+
+    </script>
+</body>
+</html>
